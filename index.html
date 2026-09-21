@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Día de las Flores Amarillas 💛</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="petalsCanvas"></canvas>
+
+    <!-- =========================================================================
+         1. PANTALLA DE INICIO (MENÚ PRINCIPAL)
+         ========================================================================= -->
+    <div class="start-screen" id="startScreen">
+        <div class="start-card">
+            <div class="start-icon-wrap">
+                <span class="pulse-tulip">🌷</span>
+                <span class="sparkle-orbit">✨</span>
+            </div>
+            <span class="start-badge">21 de Septiembre</span>
+            <h1 class="start-title">Día de las Flores Amarillas</h1>
+            <p class="start-text">Tengo un detalle muy especial preparado para ti...</p>
+            <button class="btn-start" id="btnStart">
+                <span>Iniciar Sorpresa</span>
+                <span class="btn-star">✨</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         2. PANTALLA PRINCIPAL: RAMO DE TULIPANES
+         ========================================================================= -->
+    <div class="main-experience hidden" id="mainExperience">
+        
+        <header class="header">
+            <span class="badge">💛 Flores Amarillas 💛</span>
+            <h1 class="title">Para Ti, con Todo Mi Cariño</h1>
+        </header>
+
+        <!-- Contenedor del Ramo de Tulipanes -->
+        <div class="bouquet-wrapper">
+            <div class="bouquet-glow"></div>
+            
+            <div class="bouquet-container" id="bouquetContainer">
+                <svg class="bouquet-svg" viewBox="0 0 540 750" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs>
+                        <!-- Filtros de sombra y brillo suave -->
+                        <filter id="tulipGlow" x="-25%" y="-25%" width="150%" height="150%">
+                            <feGaussianBlur stdDeviation="3.5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <filter id="elementShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="2" dy="5" stdDeviation="4" flood-color="#120c02" flood-opacity="0.45"/>
+                        </filter>
+
+                        <!-- Degradados para hojas y tallos -->
+                        <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#365314"/>
+                            <stop offset="45%" stop-color="#65A30D"/>
+                            <stop offset="100%" stop-color="#1E3A0F"/>
+                        </linearGradient>
+
+                        <linearGradient id="leafGradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#84CC16"/>
+                            <stop offset="50%" stop-color="#4D7C0F"/>
+                            <stop offset="100%" stop-color="#1E3A0F"/>
+                        </linearGradient>
+
+                        <linearGradient id="leafGradRight" x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#84CC16"/>
+                            <stop offset="50%" stop-color="#4D7C0F"/>
+                            <stop offset="100%" stop-color="#1E3A0F"/>
+                        </linearGradient>
+
+                        <!-- Degradado del papel kraft -->
+                        <linearGradient id="kraftOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#EAD7BE"/>
+                            <stop offset="40%" stop-color="#D4B693"/>
+                            <stop offset="100%" stop-color="#9C7952"/>
+                        </linearGradient>
+
+                        <linearGradient id="kraftInner" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#BA9A73"/>
+                            <stop offset="50%" stop-color="#A5835C"/>
+                            <stop offset="100%" stop-color="#7B5B37"/>
+                        </linearGradient>
+
+                        <!-- Degradado del lazo dorado -->
+                        <linearGradient id="goldRibbon" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#CA8A04"/>
+                            <stop offset="40%" stop-color="#FEF08A"/>
+                            <stop offset="70%" stop-color="#F59E0B"/>
+                            <stop offset="100%" stop-color="#A16207"/>
+                        </linearGradient>
+
+                        <!-- =========================================================================
+                             SÍMBOLO DEL TULIPÁN IDÉNTICO A LA IMAGEN DE REFERENCIA
+                             ========================================================================= -->
+                        <g id="flower-head">
+                            <image href="img/tulip_flower_web.png" xlink:href="img/tulip_flower_web.png" x="-58" y="-128" width="116" height="129" filter="url(#tulipGlow)" />
+                        </g>
+                    </defs>
+
+                    <!-- HOJAS TRASERAS LARGAS DEL RAMO -->
+                    <g class="back-leaves" filter="url(#elementShadow)">
+                        <path class="leaf-elem" d="M230,510 C150,440 90,300 110,160 C140,240 180,350 245,480 Z" fill="url(#leafGradLeft)"/>
+                        <path class="leaf-elem" d="M310,510 C390,440 450,300 430,160 C400,240 360,350 295,480 Z" fill="url(#leafGradRight)"/>
+                        <path class="leaf-elem" d="M270,480 C260,350 240,220 270,90 C295,200 295,330 280,480 Z" fill="url(#leafGradLeft)"/>
+                    </g>
+
+                    <!-- =========================================================================
+                         TULIPANES SECUENCIALES (VAN APARECIENDO UNO POR UNO)
+                         ========================================================================= -->
+                    <g class="tulip-bouquet-group">
+                        
+                        <!-- TULIPÁN 1 (Centro Arriba - Reina del Ramo) -->
+                        <g class="tulip-unit step-1" id="tulipUnit1">
+                            <path class="stem-elem" d="M270,520 Q270,360 270,175" stroke="url(#stemGrad)" stroke-width="10" stroke-linecap="round" fill="none"/>
+                            <path class="leaf-stem" d="M270,430 C240,350 230,290 250,230 C265,300 270,360 270,430 Z" fill="url(#leafGradLeft)"/>
+                            <g transform="translate(270, 175) scale(1.18)">
+                                <use href="#flower-head" />
+                            </g>
+                        </g>
+
+                        <!-- TULIPÁN 2 (Izquierda Alto) -->
+                        <g class="tulip-unit step-2" id="tulipUnit2">
+                            <path class="stem-elem" d="M260,520 Q210,380 205,230" stroke="url(#stemGrad)" stroke-width="9" stroke-linecap="round" fill="none"/>
+                            <path class="leaf-stem" d="M245,450 C190,390 170,330 190,270 C210,330 235,400 245,450 Z" fill="url(#leafGradLeft)"/>
+                            <g transform="translate(205, 230) rotate(-10) scale(1.12)">
+                                <use href="#flower-head" />
+                            </g>
+                        </g>
+
+                        <!-- TULIPÁN 3 (Derecha Alto) -->
+                        <g class="tulip-unit step-3" id="tulipUnit3">
+                            <path class="stem-elem" d="M280,520 Q330,380 335,230" stroke="url(#stemGrad)" stroke-width="9" stroke-linecap="round" fill="none"/>
+                            <path class="leaf-stem" d="M295,450 C350,390 370,330 350,270 C330,330 305,400 295,450 Z" fill="url(#leafGradRight)"/>
+                            <g transform="translate(335, 230) rotate(10) scale(1.12)">
+                                <use href="#flower-head" />
+                            </g>
+                        </g>
+
+                        <!-- TULIPÁN 4 (Izquierda Medio) -->
+                        <g class="tulip-unit step-4" id="tulipUnit4">
+                            <path class="stem-elem" d="M255,530 Q160,420 145,305" stroke="url(#stemGrad)" stroke-width="8.5" stroke-linecap="round" fill="none"/>
+                            <path class="leaf-stem" d="M230,470 C160,410 130,360 140,300 C165,360 205,420 230,470 Z" fill="url(#leafGradLeft)"/>
+                            <g transform="translate(145, 305) rotate(-18) scale(1.05)">
+                                <use href="#flower-head" />
+                            </g>
+                        </g>
+
+                        <!-- TULIPÁN 5 (Derecha Medio) -->
+                        <g class="tulip-unit step-5" id="tulipUnit5">
+                            <path class="stem-elem" d="M285,530 Q380,420 395,305" stroke="url(#stemGrad)" stroke-width="8.5" stroke-linecap="round" fill="none"/>
+                            <path class="leaf-stem" d="M310,470 C380,410 410,360 400,300 C375,360 335,420 310,470 Z" fill="url(#leafGradRight)"/>
+                            <g transform="translate(395, 305) rotate(18) scale(1.05)">
+                                <use href="#flower-head" />
+                            </g>
+                        </g>
+
+                        <!-- TULIPÁN 6 (Frente Izquierda) -->
+                        <g class="tulip-unit step-6" id="tulipUnit6">
+                            <path class="stem-elem" d="M262,540 Q220,460 215,375" stroke="url(#stemGrad)" stroke-width="8" stroke-linecap="round" fill="none"/>
+                            <g transform="translate(215, 375) rotate(-6) scale(1.02)">
+                                <use href="#flower-head" />
+                            </g>
+                        </g>
+
+                        <!-- TULIPÁN 7 (Frente Derecha) -->
+                        <g class="tulip-unit step-7" id="tulipUnit7">
+                            <path class="stem-elem" d="M278,540 Q320,460 325,375" stroke="url(#stemGrad)" stroke-width="8" stroke-linecap="round" fill="none"/>
+                            <g transform="translate(325, 375) rotate(6) scale(1.02)">
+                                <use href="#flower-head" />
+                            </g>
+                        </g>
+
+                    </g>
+
+                    <!-- PAPEL KRAFT / ENVOLTORIO DEL RAMO -->
+                    <g class="kraft-bouquet-wrap" filter="url(#elementShadow)">
+                        <!-- Fondo kraft interior -->
+                        <polygon points="120,440 420,440 305,680 235,680" fill="url(#kraftInner)"/>
+                        
+                        <!-- Solapas cruzadas de papel kraft -->
+                        <polygon points="100,450 300,600 215,695 140,510" fill="url(#kraftOuter)"/>
+                        <polygon points="440,450 240,600 325,695 400,510" fill="url(#kraftOuter)"/>
+                        
+                        <!-- Capa frontal cónica de presentación -->
+                        <polygon points="160,470 380,470 295,695 245,695" fill="url(#kraftOuter)" opacity="0.95"/>
+                        <path d="M245,695 L270,580 L295,695 Z" fill="#75522F" opacity="0.45"/>
+
+                        <!-- LAZO Y CINTA DORADA ENVOLVENTE -->
+                        <g class="gold-ribbon-wrap" filter="url(#tulipGlow)">
+                            <ellipse cx="270" cy="590" rx="42" ry="14" fill="url(#goldRibbon)"/>
+                            <!-- Lazos izquierda y derecha -->
+                            <path d="M265,590 C220,555 200,580 230,610 C252,610 265,596 270,590 Z" fill="url(#goldRibbon)"/>
+                            <path d="M275,590 C320,555 340,580 310,610 C288,610 275,596 270,590 Z" fill="url(#goldRibbon)"/>
+                            <!-- Nudo central -->
+                            <circle cx="270" cy="590" r="10" fill="#F59E0B" stroke="#FEF08A" stroke-width="2"/>
+                            <!-- Caídas de la cinta -->
+                            <path d="M265,595 Q245,640 235,685 Q250,670 264,650 Q267,615 267,598 Z" fill="url(#goldRibbon)"/>
+                            <path d="M275,595 Q295,640 305,685 Q290,670 276,650 Q273,615 273,598 Z" fill="url(#goldRibbon)"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="interactive-tag">
+                <span>💛 Toca el ramo en cualquier momento 💛</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- =========================================================================
+         3. DEDICATORIA AUTOMÁTICA (APARECE EN PANTALLA TRAS 3 SEGUNDOS)
+         ========================================================================= -->
+    <div class="dedication-overlay hidden" id="dedicationOverlay">
+        <div class="dedication-card" id="dedicationCard">
+            <!-- Botón para cerrar y volver a ver el ramo si lo desea -->
+            <button class="btn-close-card" id="btnCloseCard" title="Ver el ramo">✕</button>
+
+            <div class="card-decor">
+                <span>🌷</span>
+                <span class="card-date-badge">21 de Septiembre</span>
+                <span>🌷</span>
+            </div>
+
+            <h2 class="card-title">Para Ti, Mi Persona Especial</h2>
+
+            <div class="card-body" id="cardBody">
+                <p class="poem-highlight" id="poemP1"></p>
+                <p class="poem-text" id="poemP2"></p>
+                <p class="poem-final" id="poemFinal"></p>
+            </div>
+
+            <div class="card-footer">
+                <p class="signature">Con todo mi cariño para ti 🌻</p>
+                <div class="card-buttons">
+                    <button class="btn-audio-toggle" id="btnAudioToggle">
+                        <span id="audioIcon">🎵</span> <span id="audioStatusText">Pausar Música</span>
+                    </button>
+                    <button class="btn-view-bouquet" id="btnViewBouquet">
+                        <span>Ver Ramo 🌷</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón flotante para reabrir la dedicatoria en caso de cerrarla -->
+    <button class="reopen-dedication-btn hidden" id="btnReopenDedication">
+        <span>💌 Leer Dedicatoria</span>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

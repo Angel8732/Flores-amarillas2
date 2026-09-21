@@ -1,0 +1,679 @@
+/* ==========================================================================
+   DÍA DE LAS FLORES AMARILLAS - ESTILOS PRINCIPALES
+   ========================================================================== */
+:root {
+    --bg-dark: #0a080d;
+    --gold-primary: #f59e0b;
+    --gold-light: #fef08a;
+    --gold-bright: #ffea00;
+    --gold-deep: #d97706;
+    --gold-border: rgba(254, 240, 138, 0.35);
+    --card-bg: rgba(24, 18, 11, 0.92);
+    --text-primary: #fffbf0;
+    --text-secondary: #fde68a;
+    --text-muted: #d4b483;
+    --font-heading: 'Dancing Script', cursive;
+    --font-body: 'Outfit', sans-serif;
+    --font-handwriting: 'Caveat', cursive;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 25%, #291b05 0%, #150f04 45%, #08060a 100%);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* Canvas de fondo */
+#petalsCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   1. PANTALLA DE INICIO / MENÚ PRINCIPAL
+   ========================================================================== */
+.start-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(38, 26, 8, 0.96) 0%, rgba(10, 8, 13, 0.98) 100%);
+    padding: 1.5rem;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.start-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.start-card {
+    background: linear-gradient(150deg, rgba(46, 33, 16, 0.9) 0%, rgba(20, 15, 8, 0.95) 100%);
+    border: 1px solid var(--gold-border);
+    border-radius: 28px;
+    padding: 2.8rem 2rem;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(245, 158, 11, 0.25);
+    backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: cardFloat 4s ease-in-out infinite alternate;
+}
+
+.start-icon-wrap {
+    position: relative;
+    font-size: 4rem;
+    margin-bottom: 0.8rem;
+}
+
+.pulse-tulip {
+    display: inline-block;
+    filter: drop-shadow(0 0 20px rgba(255, 234, 0, 0.6));
+    animation: tulipPulse 2.2s infinite ease-in-out;
+}
+
+.sparkle-orbit {
+    position: absolute;
+    top: -5px;
+    right: -15px;
+    font-size: 1.8rem;
+    animation: spinSlow 6s linear infinite;
+}
+
+.start-badge {
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(254, 240, 138, 0.4);
+    color: var(--gold-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.35rem 1.1rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+}
+
+.start-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.3rem, 6vw, 3.2rem);
+    line-height: 1.2;
+    background: linear-gradient(135deg, #ffffff, #ffea00, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.8rem;
+}
+
+.start-text {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+.btn-start {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+    border: 1px solid #fef08a;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 700;
+    padding: 0.95rem 2.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.45);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-start:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 15px 35px rgba(245, 158, 11, 0.6);
+    filter: brightness(1.1);
+}
+
+.btn-start:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* ==========================================================================
+   2. PANTALLA PRINCIPAL: RAMO DE TULIPANES
+   ========================================================================= */
+.main-experience {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1rem 2rem 1rem;
+    transition: opacity 1s ease;
+}
+
+.main-experience.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 0.8rem;
+    animation: fadeInDown 1s ease-out;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(245, 158, 11, 0.18);
+    border: 1px solid var(--gold-border);
+    color: var(--gold-light);
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+    background: linear-gradient(135deg, #ffffff 15%, #ffea00 55%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+}
+
+.bouquet-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 480px;
+}
+
+.bouquet-glow {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255, 234, 0, 0.28) 0%, rgba(245, 158, 11, 0.12) 50%, transparent 75%);
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+    animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+
+.bouquet-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.65));
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bouquet-container:hover {
+    transform: translateY(-6px) scale(1.02);
+}
+
+.bouquet-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    display: block;
+}
+
+.interactive-tag {
+    margin-top: -12px;
+    background: rgba(26, 20, 14, 0.75);
+    border: 1px solid rgba(254, 240, 138, 0.3);
+    padding: 0.4rem 1.1rem;
+    border-radius: 20px;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+    animation: gentlePulse 3s infinite;
+}
+
+/* ==========================================================================
+   ANIMACIÓN SECUENCIAL DE LOS TULIPANES
+   ========================================================================== */
+
+/* Hojas traseras brotando al inicio */
+.back-leaves {
+    transform-origin: 270px 520px;
+    opacity: 0;
+    animation: leafAppear 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+/* Envoltorio de papel kraft */
+.kraft-bouquet-wrap {
+    transform-origin: 270px 680px;
+    opacity: 0;
+    animation: wrapAppear 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+/* CADA TULIPÁN APARECE SECUENCIALMENTE DE UNO EN UNO */
+.tulip-unit {
+    opacity: 0;
+    transform-origin: 270px 520px;
+}
+
+/* Clases de animación secuencial */
+.tulip-unit.step-1 {
+    animation: tulipEmerge 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
+}
+
+.tulip-unit.step-2 {
+    animation: tulipEmerge 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
+}
+
+.tulip-unit.step-3 {
+    animation: tulipEmerge 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 1.4s forwards;
+}
+
+.tulip-unit.step-4 {
+    animation: tulipEmerge 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 1.9s forwards;
+}
+
+.tulip-unit.step-5 {
+    animation: tulipEmerge 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 2.4s forwards;
+}
+
+.tulip-unit.step-6 {
+    animation: tulipEmerge 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 2.9s forwards;
+}
+
+.tulip-unit.step-7 {
+    animation: tulipEmerge 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 3.4s forwards;
+}
+
+/* Suave balanceo del tulipán después de florecer */
+.tulip-unit use {
+    animation: headSway 4.5s ease-in-out infinite alternate;
+    transform-origin: 0px 0px;
+}
+
+.step-2 use { animation-delay: 0.8s; }
+.step-3 use { animation-delay: 1.6s; }
+.step-4 use { animation-delay: 2.2s; }
+.step-5 use { animation-delay: 0.5s; }
+.step-6 use { animation-delay: 1.2s; }
+.step-7 use { animation-delay: 2.8s; }
+
+/* ==========================================================================
+   3. DEDICATORIA AUTOMÁTICA (APARECE EN PANTALLA TRAS 3 SEGUNDOS)
+   ========================================================================== */
+.dedication-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 8, 13, 0.72);
+    backdrop-filter: blur(10px);
+    padding: 1.2rem;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s;
+}
+
+.dedication-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.dedication-card {
+    background: linear-gradient(155deg, rgba(42, 30, 16, 0.94) 0%, rgba(20, 14, 8, 0.97) 100%);
+    border: 1px solid var(--gold-border);
+    border-radius: 26px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85),
+                0 0 35px rgba(245, 158, 11, 0.3),
+                inset 0 1px 2px rgba(254, 240, 138, 0.4);
+    max-width: 480px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 2.2rem 1.8rem 1.8rem 1.8rem;
+    position: relative;
+    transform-origin: center center;
+    animation: zoomCardIn 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.btn-close-card {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(254, 240, 138, 0.3);
+    color: var(--text-secondary);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-close-card:hover {
+    background: rgba(245, 158, 11, 0.3);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.card-decor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.card-date-badge {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--gold-primary);
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5.5vw, 2.6rem);
+    text-align: center;
+    background: linear-gradient(135deg, #ffffff, #ffea00, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.2rem;
+    line-height: 1.2;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #f7edd8;
+    font-size: 1.05rem;
+    line-height: 1.65;
+}
+
+.poem-highlight {
+    font-family: var(--font-handwriting);
+    font-size: 1.5rem;
+    line-height: 1.35;
+    color: var(--gold-light);
+    font-style: italic;
+    background: rgba(254, 240, 138, 0.06);
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--gold-primary);
+    border-radius: 10px;
+}
+
+.poem-text {
+    font-weight: 300;
+}
+
+.poem-final {
+    font-family: var(--font-heading);
+    font-size: 1.65rem;
+    color: var(--gold-bright);
+    text-align: center;
+    margin-top: 0.6rem;
+    text-shadow: 0 0 15px rgba(255, 234, 0, 0.5);
+    opacity: 0;
+    transform: scale(0.88);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.poem-final.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Efecto de aparición palabra por palabra como lectura fluida */
+.word-span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    margin-right: 0.28em;
+}
+
+.word-span.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-footer {
+    margin-top: 1.4rem;
+    border-top: 1px solid rgba(254, 240, 138, 0.15);
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.signature {
+    font-family: var(--font-heading);
+    font-size: 1.55rem;
+    color: var(--gold-light);
+}
+
+.card-buttons {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.btn-audio-toggle,
+.btn-view-bouquet {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid var(--gold-border);
+    color: var(--gold-light);
+    padding: 0.65rem 0.9rem;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-audio-toggle:hover,
+.btn-view-bouquet:hover {
+    background: rgba(245, 158, 11, 0.4);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* Botón flotante para reabrir la dedicatoria */
+.reopen-dedication-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 70;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(217, 119, 6, 0.95));
+    border: 1px solid #fef08a;
+    color: #ffffff;
+    padding: 0.65rem 1.4rem;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(245, 158, 11, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: pulseButton 2.5s infinite;
+}
+
+.reopen-dedication-btn.hidden {
+    display: none;
+}
+
+.reopen-dedication-btn:hover {
+    transform: translateX(-50%) translateY(-3px) scale(1.05);
+}
+
+/* ==========================================================================
+   ANIMACIONES CLAVE
+   ========================================================================== */
+@keyframes cardFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+}
+
+@keyframes tulipPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+
+@keyframes spinSlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes leafAppear {
+    0% { opacity: 0; transform: scale(0.2); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes wrapAppear {
+    0% { opacity: 0; transform: scaleY(0.1); }
+    100% { opacity: 1; transform: scaleY(1); }
+}
+
+@keyframes tulipEmerge {
+    0% {
+        opacity: 0;
+        transform: translateY(90px) scale(0.2);
+    }
+    65% {
+        opacity: 1;
+        transform: translateY(-6px) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes headSway {
+    0% { transform: rotate(-2deg); }
+    100% { transform: rotate(2deg); }
+}
+
+@keyframes pulseGlow {
+    0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.5; }
+    100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+}
+
+@keyframes gentlePulse {
+    0%, 100% { opacity: 0.75; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.03); }
+}
+
+@keyframes zoomCardIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.12) translateY(50px);
+    }
+    65% {
+        opacity: 1;
+        transform: scale(1.04) translateY(-4px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes pulseButton {
+    0%, 100% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(245, 158, 11, 0.4); }
+    50% { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 234, 0, 0.7); }
+}
+
+/* ==========================================================================
+   RESPONSIVIDAD (MÓVIL Y ESCRITORIO)
+   ========================================================================== */
+@media (max-width: 480px) {
+    .start-card {
+        padding: 2rem 1.4rem;
+    }
+
+    .start-title {
+        font-size: 2.2rem;
+    }
+
+    .bouquet-wrapper {
+        max-width: 340px;
+    }
+
+    .interactive-tag {
+        font-size: 0.76rem;
+    }
+
+    .dedication-card {
+        padding: 1.8rem 1.3rem 1.4rem 1.3rem;
+        max-height: 90vh;
+    }
+
+    .poem-highlight {
+        font-size: 1.32rem;
+    }
+
+    .card-body {
+        font-size: 0.95rem;
+    }
+
+    .card-title {
+        font-size: 1.95rem;
+    }
+}
